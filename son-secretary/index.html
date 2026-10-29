@@ -320,6 +320,40 @@
       word-break: keep-all;
       line-height: 1.6;
     }
+    .prompt-bubble {
+      background: var(--primary-soft);
+      border-left: 3.5px solid var(--primary);
+      padding: 10px 14px;
+      border-radius: 8px;
+      margin: 12px 0 10px;
+      font-size: 0.88rem;
+      color: var(--primary);
+      font-weight: 600;
+      line-height: 1.5;
+      word-break: keep-all;
+    }
+    .mission-box {
+      background: #f8fafc;
+      border: 1px dashed #cbd5e1;
+      padding: 10px 14px;
+      border-radius: 8px;
+      margin-top: 10px;
+      font-size: 0.82rem;
+      color: var(--text-sub);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      word-break: keep-all;
+    }
+    .mission-badge {
+      background: #e2e8f0;
+      color: #334155;
+      font-weight: 700;
+      font-size: 0.72rem;
+      padding: 2px 6px;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
 
     /* Tool Section */
     .tool-box {
@@ -633,7 +667,14 @@
               <span class="day-tagline">초대받기 및 주요 세팅</span>
             </div>
             <h3>손비서 채용하기</h3>
-            <p>초대코드를 받아 손비서를 설치하고, 필수 연동작업을 거쳐 손비서가 나를 위해 일할 수 있는 완벽한 환경을 만들어 줍니다.</p>
+            <p>초대코드를 받아 손비서를 설치하고, 필수 연동작업(구글 캘린더·이메일·노션 등)을 거쳐 손비서가 나를 위해 일할 수 있는 완벽한 환경을 만듭니다.</p>
+            <div class="prompt-bubble">
+              💬 <strong>실전 프롬프트:</strong> "내 구글 캘린더랑 이메일 연동 도와줘. 앞으로 너를 '루이'라고 부를게!"
+            </div>
+            <div class="mission-box">
+              <span class="mission-badge">오늘의 미션</span>
+              <span>피클 계정 연동 완료 화면 또는 비서와의 첫 대화 캡처 인증</span>
+            </div>
           </div>
 
           <!-- Day 02 -->
@@ -643,17 +684,31 @@
               <span class="day-tagline">온라인 행정업무 처리</span>
             </div>
             <h3>“서류 발급받아 제출해 줘”</h3>
-            <p>필요한 증명서와 제출처를 알려주면 손비서가 직접 문서를 발급받아 신청 및 제출까지 매끄럽게 이어가는 과정을 경험합니다.</p>
+            <p>정부24나 홈택스 등 공공 웹사이트에서 필요한 주민등록등본, 사업자등록증명 등 민원 서류를 비서가 브라우저로 직접 접속해 발급·저장합니다.</p>
+            <div class="prompt-bubble">
+              💬 <strong>실전 프롬프트:</strong> "정부24에서 주민등록등본 국문 1부 발급받아서 PDF로 다운로드해 줘."
+            </div>
+            <div class="mission-box">
+              <span class="mission-badge">오늘의 미션</span>
+              <span>비서가 발급하여 대화창에 올려준 증명서 다운로드 카드 캡처 인증</span>
+            </div>
           </div>
 
           <!-- Day 03 -->
           <div class="day-card">
             <div class="day-header">
               <span class="day-badge">DAY 03</span>
-              <span class="day-tagline">온라인 예약 및 고객센터 문의</span>
+              <span class="day-tagline">온라인 예약 및 문의</span>
             </div>
             <h3>“예약하고 주차 확인해 줘”</h3>
-            <p>조건에 딱 맞는 서비스를 검색·예약하고, 고객센터나 매장에 직접 변경 및 세부 요청사항을 문의해 해결합니다.</p>
+            <p>조건에 맞는 맛집 식당, 영화관 명당자리, KTX 승차권 등을 검색·예약하고, 고객센터나 매장에 직접 변경 및 주차 조건을 문의합니다.</p>
+            <div class="prompt-bubble">
+              💬 <strong>실전 프롬프트:</strong> "금요일 저녁 7시 용산역 근처 조용한 이탈리안 2명 예약하고 주차 확인해 줘."
+            </div>
+            <div class="mission-box">
+              <span class="mission-badge">오늘의 미션</span>
+              <span>비서가 생성해 준 [예약 확인 카드] 및 캘린더 등록 완료 화면 캡처 인증</span>
+            </div>
           </div>
 
           <!-- Day 04 -->
@@ -663,7 +718,14 @@
               <span class="day-tagline">껄끄러운 통화 부탁하기</span>
             </div>
             <h3>“대신 전화해 줘”</h3>
-            <p>직접 통화하기 껄끄럽거나 번거로운 곳에 손비서가 직접 전화를 걸어 원하는 결과를 받아오고, 통화 내용을 실시간으로 전달합니다.</p>
+            <p>직접 통화하기 어색하거나 바쁠 때, AI 비서가 매장·지인·거래처에 직접 전화를 걸어 룸 변경, 약속 일정 조율, 감사 안부를 정중하게 전하고 옵니다.</p>
+            <div class="prompt-bubble">
+              💬 <strong>실전 프롬프트:</strong> "식당에 전화해서 룸으로 변경 가능한지 물어봐 줘 / 거래처 대표님께 점심 일정 여쭤봐 줘."
+            </div>
+            <div class="mission-box">
+              <span class="mission-badge">오늘의 미션</span>
+              <span>비서가 전화를 마치고 대화창에 보고해 준 [통화 결과 요약 카드] 캡처 인증</span>
+            </div>
           </div>
 
           <!-- Day 05 -->
@@ -673,17 +735,31 @@
               <span class="day-tagline">AI 에이전트 간 소통</span>
             </div>
             <h3>“약속 잡아 줘”</h3>
-            <p>나의 상황과 취향만 알려주면 복수의 손비서가 서로 논의해 최적의 시간과 장소를 결정하고, 사람은 결과만 편안히 확인합니다.</p>
+            <p>나의 일정과 취향만 알려주면, 친구나 동료의 피클과 서로 캘린더와 선호 장소를 비교·의논하여 최적의 약속 시간을 확정합니다.</p>
+            <div class="prompt-bubble">
+              💬 <strong>실전 프롬프트:</strong> "홍범 님 피클한테 연락해서 이번 주말에 만날 시간 서로 맞춰보라고 해 줘."
+            </div>
+            <div class="mission-box">
+              <span class="mission-badge">오늘의 미션</span>
+              <span>비서끼리 대화하여 성사된 [약속 조율 카드] 또는 캘린더 등록 화면 캡처 인증</span>
+            </div>
           </div>
 
           <!-- Day 06 -->
           <div class="day-card">
             <div class="day-header">
               <span class="day-badge">DAY 06</span>
-              <span class="day-tagline">섬세한 SNS 계정 관리</span>
+              <span class="day-tagline">섬세한 계정 관리</span>
             </div>
             <h3>“내 계정 관리해 줘”</h3>
-            <p>내 말투와 기준을 알려주면 손비서가 SNS 계정의 반응을 살피고 필요한 일을 대신 처리합니다. 중요한 결정은 먼저 확인을 받습니다.</p>
+            <p>메일함에 쌓인 불필요한 광고 수천 통을 한 번에 대청소하고, 슬랙·X(트위터)의 긴급 멘션과 중요 알림만 쏙 뽑아 브리핑을 받습니다.</p>
+            <div class="prompt-bubble">
+              💬 <strong>실전 프롬프트:</strong> "메일함에 쌓인 프로모션 광고 메일들 싹 정리해 줘 / 오늘 슬랙 중요 업무 요약해 줘."
+            </div>
+            <div class="mission-box">
+              <span class="mission-badge">오늘의 미션</span>
+              <span>비서가 전송한 [메일함 대청소 결과 카드] 또는 [일일 업무 요약 브리핑] 캡처 인증</span>
+            </div>
           </div>
         </div>
       </div>
