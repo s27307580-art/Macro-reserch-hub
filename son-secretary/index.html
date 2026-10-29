@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>손비서 1기 | 내 손안의 AI 비서 6일 챌린지</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+  <style>
+    :root {
+      --primary: #5842ed;
+      --primary-light: #7b68ee;
+      --primary-soft: #f0eeff;
+      --text-main: #191f28;
+      --text-sub: #4e5968;
+      --text-muted: #8b95a1;
+      --bg-light: #f9fafb;
+      --bg-white: #ffffff;
+      --border-color: #e5e8eb;
+      --accent: #2ac1bc;
+      --badge-bg: #e8f3ff;
+      --badge-text: #1b64da;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+      color: var(--text-main);
+      background-color: var(--bg-light);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Accessibility Skip Link */
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 10px;
+      background: var(--primary);
+      color: white;
+      padding: 8px 16px;
+      z-index: 1000;
+      text-decoration: none;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+    .skip-link:focus {
+      top: 10px;
+    }
+
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Header */
+    header {
+      padding: 18px 0;
+      position: sticky;
+      top: 0;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 100;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .nav-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+    }
+    .btn-header {
+      background: var(--primary);
+      color: #fff;
+      padding: 8px 18px;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .btn-header:hover {
+      background: var(--primary-light);
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 50px 0 36px;
+      text-align: center;
+      background: linear-gradient(180deg, #ffffff 0%, var(--bg-light) 100%);
+    }
+    .tag-badge {
+      display: inline-block;
+      background: var(--primary-soft);
+      color: var(--primary);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      letter-spacing: -0.3px;
+    }
+    .hero h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      line-height: 1.35;
+      letter-spacing: -0.6px;
+      margin-bottom: 14px;
+      word-break: keep-all;
+    }
+    .hero h1 span {
+      color: var(--primary);
+    }
+    .hero p.lead {
+      font-size: 1.05rem;
+      color: var(--text-sub);
+      word-break: keep-all;
+      margin-bottom: 24px;
+    }
+    .hero-meta {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      font-weight: 500;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+    }
+    .hero-meta span {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .hero-cta {
+      display: inline-block;
+      width: 100%;
+      max-width: 320px;
+      background: var(--primary);
+      color: white;
+      padding: 16px 24px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      border-radius: 14px;
+      text-decoration: none;
+      box-shadow: 0 10px 20px rgba(88, 66, 237, 0.25);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .hero-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 24px rgba(88, 66, 237, 0.35);
+    }
+
+    /* Key Specs Card */
+    .specs-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin: 30px 0;
+    }
+    .spec-item {
+      background: #fff;
+      padding: 18px;
+      border-radius: 14px;
+      border: 1px solid var(--border-color);
+      text-align: center;
+    }
+    .spec-item .label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+    }
+    .spec-item .value {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+    .spec-item .value.highlight {
+      color: var(--primary);
+    }
+
+    /* Section Styling */
+    section {
+      padding: 40px 0;
+    }
+    .section-title {
+      font-size: 1.45rem;
+      font-weight: 800;
+      letter-spacing: -0.4px;
+      margin-bottom: 10px;
+      word-break: keep-all;
+    }
+    .section-sub {
+      color: var(--text-sub);
+      font-size: 0.95rem;
+      margin-bottom: 24px;
+      word-break: keep-all;
+    }
+
+    /* Why Section */
+    .card-why {
+      background: #fff;
+      padding: 24px;
+      border-radius: 16px;
+      border: 1px solid var(--border-color);
+      line-height: 1.7;
+    }
+    .card-why p {
+      font-size: 1rem;
+      color: var(--text-sub);
+      word-break: keep-all;
+      margin-bottom: 14px;
+    }
+    .card-why p strong {
+      color: var(--text-main);
+    }
+
+    /* Challenge Feature Cards */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+    .feature-card {
+      background: #fff;
+      padding: 20px;
+      border-radius: 14px;
+      border: 1px solid var(--border-color);
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .feature-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: var(--primary-soft);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+    .feature-content h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .feature-content p {
+      font-size: 0.9rem;
+      color: var(--text-sub);
+      word-break: keep-all;
+    }
+
+    /* Curriculum Section */
+    .curriculum-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .day-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 22px;
+      border: 1px solid var(--border-color);
+      position: relative;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .day-card:hover {
+      border-color: var(--primary-light);
+      box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+    }
+    .day-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .day-badge {
+      background: var(--primary);
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 8px;
+      letter-spacing: 0.5px;
+    }
+    .day-tagline {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    .day-card h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      margin-bottom: 8px;
+      word-break: keep-all;
+    }
+    .day-card p {
+      font-size: 0.92rem;
+      color: var(--text-sub);
+      word-break: keep-all;
+      line-height: 1.6;
+    }
+
+    /* Tool Section */
+    .tool-box {
+      background: linear-gradient(135deg, #2d264b 0%, #1a162b 100%);
+      color: #fff;
+      padding: 30px;
+      border-radius: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+    .tool-box::after {
+      content: '🥒';
+      font-size: 8rem;
+      position: absolute;
+      right: -20px;
+      bottom: -30px;
+      opacity: 0.12;
+      pointer-events: none;
+    }
+    .tool-tag {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.15);
+      color: #a89bf8;
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 6px;
+      margin-bottom: 12px;
+    }
+    .tool-box h3 {
+      font-size: 1.35rem;
+      font-weight: 800;
+      margin-bottom: 14px;
+    }
+    .tool-box p {
+      font-size: 0.95rem;
+      color: #cfd4dc;
+      line-height: 1.7;
+      word-break: keep-all;
+      margin-bottom: 16px;
+    }
+
+    /* For You (Target) */
+    .recommend-box {
+      background: #fff;
+      border-radius: 16px;
+      padding: 24px;
+      border: 1px solid var(--border-color);
+    }
+    .recommend-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .recommend-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 0.95rem;
+      color: var(--text-main);
+      word-break: keep-all;
+    }
+    .check-icon {
+      color: var(--primary);
+      font-weight: 800;
+      font-size: 1.1rem;
+      line-height: 1.2;
+    }
+
+    /* Steps Section */
+    .steps-container {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin: 20px 0;
+    }
+    .step-item {
+      display: flex;
+      align-items: center;
+      background: #fff;
+      padding: 16px 20px;
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+      gap: 16px;
+    }
+    .step-num {
+      width: 32px;
+      height: 32px;
+      background: var(--primary-soft);
+      color: var(--primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.95rem;
+      flex-shrink: 0;
+    }
+    .step-text {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    /* Notice & Inquiries */
+    .notice-box {
+      background: #f2f4f6;
+      border-radius: 14px;
+      padding: 20px;
+      font-size: 0.85rem;
+      color: var(--text-sub);
+      line-height: 1.65;
+      margin-top: 24px;
+    }
+    .notice-box ul {
+      margin-left: 18px;
+      margin-top: 8px;
+    }
+    .notice-box li {
+      margin-bottom: 6px;
+    }
+
+    /* Apply CTA Bottom */
+    .apply-card {
+      background: #fff;
+      border: 2px solid var(--primary);
+      border-radius: 20px;
+      padding: 28px;
+      text-align: center;
+      margin-top: 30px;
+      box-shadow: 0 12px 30px rgba(88, 66, 237, 0.1);
+    }
+    .apply-card h3 {
+      font-size: 1.4rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+    .price-tag {
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: var(--primary);
+      margin-bottom: 16px;
+    }
+    .apply-btn {
+      display: block;
+      width: 100%;
+      background: var(--primary);
+      color: #fff;
+      padding: 16px 0;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .apply-btn:hover {
+      background: var(--primary-light);
+    }
+    .contact-link {
+      display: inline-block;
+      margin-top: 14px;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      text-decoration: none;
+    }
+    .contact-link strong {
+      color: var(--text-sub);
+    }
+
+    /* Footer */
+    footer {
+      padding: 40px 0;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border-color);
+      margin-top: 50px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 접근성 본문 바로가기 -->
+  <a href="#main-content" class="skip-link">본문으로 바로가기</a>
+
+  <!-- 상단 네비게이션 -->
+  <header>
+    <div class="container nav-inner">
+      <a href="#" class="logo">
+        <span>✨ 손비서 챌린지</span>
+      </a>
+      <a href="#apply" class="btn-header">신청하기</a>
+    </div>
+  </header>
+
+  <!-- 메인 본문 -->
+  <main id="main-content">
+    
+    <!-- Hero -->
+    <section class="hero">
+      <div class="container">
+        <div class="tag-badge">손비서 1기 모집</div>
+        <h1>
+          말 한마디로 일을 시키는<br>
+          <span>내 손안의 비서 6일 챌린지</span>
+        </h1>
+        <p class="lead">
+          내가 하기엔 어렵고 껄끄럽고 지루한 일,<br>
+          이제 스마트폰 속 AI 비서에게 시키세요.
+        </p>
+
+        <div class="hero-meta">
+          <span>📅 2026.11.02(월) - 11.07(토)</span>
+          <span>•</span>
+          <span>📍 100% 온라인 실습</span>
+          <span>•</span>
+          <span>📱 스마트폰 하나로</span>
+        </div>
+
+        <a href="#apply" class="hero-cta">지금 바로 신청하기 ↓</a>
+
+        <!-- Specs Grid -->
+        <div class="specs-grid">
+          <div class="spec-item">
+            <div class="label">진행 기간</div>
+            <div class="value">2026.11.02 - 11.07</div>
+          </div>
+          <div class="spec-item">
+            <div class="label">참가비</div>
+            <div class="value highlight">49,000원</div>
+          </div>
+          <div class="spec-item">
+            <div class="label">학습 수준</div>
+            <div class="value">초급 (누구나 가능)</div>
+          </div>
+          <div class="spec-item">
+            <div class="label">미션 오픈</div>
+            <div class="value">매일 자정 (24시간 내)</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why Section -->
+    <section>
+      <div class="container">
+        <h2 class="section-title">Why?</h2>
+        <p class="section-sub">귀찮지만 꼭 해야 하는 일, 아직도 꾸역꾸역 직접 하고 계신가요?</p>
+        <div class="card-why">
+          <p>
+            손비서 챌린지는 <strong>AI 에이전트를 내 손안의 비서로 활용하는 다양한 방법</strong>을 경험해 봅니다.
+          </p>
+          <p>
+            몇 백만 원을 주고 고용하는 인간 비서보다 <strong>더 정확하고, 빠르고, 눈치 있는</strong> 스마트폰 안의 비서를 다루는 방법을 처음부터 하나씩 배워봅니다.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Challenge 특징 -->
+    <section>
+      <div class="container">
+        <h2 class="section-title">챌린지가 뭔가요?</h2>
+        <p class="section-sub">매일 자정 미션이 열리면 24시간 안에 수행합니다. 탈락은 없지만 건강한 자극을 받습니다.</p>
+        
+        <div class="feature-grid">
+          <div class="feature-card">
+            <div class="feature-icon">🎯</div>
+            <div class="feature-content">
+              <h3>체계적인 미션</h3>
+              <p>매일 자정, 하나의 미션이 열립니다. 무엇을 해야 하는지 고민할 필요 없이 오늘의 미션만 수행하세요.</p>
+            </div>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">🤝</div>
+            <div class="feature-content">
+              <h3>동료의 존재</h3>
+              <p>같은 미션을 수행하는 여러 동료들과 함께합니다. 혼자라면 쉽게 포기하지만, 함께라면 끝까지 완주할 수 있습니다.</p>
+            </div>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">⏰</div>
+            <div class="feature-content">
+              <h3>온라인, 내 시간에</h3>
+              <p>정해진 강의 시간도, 접속해야 할 특정 플랫폼도 없습니다. 하루 24시간 중 내가 원하는 시간에 편하게 수행하세요.</p>
+            </div>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">🚀</div>
+            <div class="feature-content">
+              <h3>6일 후, 내 비서</h3>
+              <p>단순한 이론 강의가 아닙니다. 챌린지가 끝나면 귀찮은 일을 말 한마디로 척척 맡길 수 있는 나만의 비서가 손안에 남습니다.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Curriculum -->
+    <section id="curriculum">
+      <div class="container">
+        <h2 class="section-title">Curriculum</h2>
+        <p class="section-sub">6일, 매일 하나의 실전 미션으로 비서에게 시킬 일이 하나씩 늘어납니다.</p>
+
+        <div class="curriculum-list">
+          <!-- Day 01 -->
+          <div class="day-card">
+            <div class="day-header">
+              <span class="day-badge">DAY 01</span>
+              <span class="day-tagline">초대받기 및 주요 세팅</span>
+            </div>
+            <h3>손비서 채용하기</h3>
+            <p>초대코드를 받아 손비서를 설치하고, 필수 연동작업을 거쳐 손비서가 나를 위해 일할 수 있는 완벽한 환경을 만들어 줍니다.</p>
+          </div>
+
+          <!-- Day 02 -->
+          <div class="day-card">
+            <div class="day-header">
+              <span class="day-badge">DAY 02</span>
+              <span class="day-tagline">온라인 행정업무 처리</span>
+            </div>
+            <h3>“서류 발급받아 제출해 줘”</h3>
+            <p>필요한 증명서와 제출처를 알려주면 손비서가 직접 문서를 발급받아 신청 및 제출까지 매끄럽게 이어가는 과정을 경험합니다.</p>
+          </div>
+
+          <!-- Day 03 -->
+          <div class="day-card">
+            <div class="day-header">
+              <span class="day-badge">DAY 03</span>
+              <span class="day-tagline">온라인 예약 및 고객센터 문의</span>
+            </div>
+            <h3>“예약하고 주차 확인해 줘”</h3>
+            <p>조건에 딱 맞는 서비스를 검색·예약하고, 고객센터나 매장에 직접 변경 및 세부 요청사항을 문의해 해결합니다.</p>
+          </div>
+
+          <!-- Day 04 -->
+          <div class="day-card">
+            <div class="day-header">
+              <span class="day-badge">DAY 04</span>
+              <span class="day-tagline">껄끄러운 통화 부탁하기</span>
+            </div>
+            <h3>“대신 전화해 줘”</h3>
+            <p>직접 통화하기 껄끄럽거나 번거로운 곳에 손비서가 직접 전화를 걸어 원하는 결과를 받아오고, 통화 내용을 실시간으로 전달합니다.</p>
+          </div>
+
+          <!-- Day 05 -->
+          <div class="day-card">
+            <div class="day-header">
+              <span class="day-badge">DAY 05</span>
+              <span class="day-tagline">AI 에이전트 간 소통</span>
+            </div>
+            <h3>“약속 잡아 줘”</h3>
+            <p>나의 상황과 취향만 알려주면 복수의 손비서가 서로 논의해 최적의 시간과 장소를 결정하고, 사람은 결과만 편안히 확인합니다.</p>
+          </div>
+
+          <!-- Day 06 -->
+          <div class="day-card">
+            <div class="day-header">
+              <span class="day-badge">DAY 06</span>
+              <span class="day-tagline">섬세한 SNS 계정 관리</span>
+            </div>
+            <h3>“내 계정 관리해 줘”</h3>
+            <p>내 말투와 기준을 알려주면 손비서가 SNS 계정의 반응을 살피고 필요한 일을 대신 처리합니다. 중요한 결정은 먼저 확인을 받습니다.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tool 소개 -->
+    <section>
+      <div class="container">
+        <div class="tool-box">
+          <div class="tool-tag">CORE TOOL</div>
+          <h3>스마트폰 속 AI 에이전트, 피클 (Pickle)</h3>
+          <p>
+            피클(Pickle)은 아이폰과 안드로이드폰에서 작동하는 차세대 AI 에이전트 앱입니다.<br>
+            말이나 글로 일을 맡기면 나를 대신해 사람과 소통하고, 연결된 앱을 통해 사람처럼 실제 웹과 현실 세계의 일을 처리합니다.
+          </p>
+          <p>
+            예약이나 결제처럼 중요한 일은 진행하기 전에 반드시 나에게 승인을 받으므로 안심할 수 있습니다.<br>
+            이번 챌린지에서는 피클에게 실제 일을 시키고, 결과를 확인하고, 더 똑똑하게 일을 맡기는 노하우를 익힙니다.
+          </p>
+          <p style="font-size: 0.85rem; color: #a89bf8; margin-bottom: 0;">
+            ※ 챌린지 참여자 전원에게 피클 전용 가입 초대코드를 지급해 드립니다.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 추천 대상 -->
+    <section>
+      <div class="container">
+        <h2 class="section-title">For you</h2>
+        <p class="section-sub">코딩 경험도, 컴퓨터도 필요 없습니다. 스마트폰 하나로 삶의 번거로움을 덜고 싶은 분께 추천합니다.</p>
+        
+        <div class="recommend-box">
+          <ul class="recommend-list">
+            <li>
+              <span class="check-icon">✓</span>
+              <span>모르는 곳이나 가게에 전화 거는 일이 부담스럽거나 자꾸 미루게 되는 분</span>
+            </li>
+            <li>
+              <span class="check-icon">✓</span>
+              <span>해외 여행, 해외 직구, 외래 예약에서 언어 장벽 때문에 멈칫했던 적이 있는 분</span>
+            </li>
+            <li>
+              <span class="check-icon">✓</span>
+              <span>서류 발급, 고객센터 문의, 일정 조율 같은 자잘한 일상 행정에 시간을 많이 뺏기는 분</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 신청 및 안내 -->
+    <section id="apply">
+      <div class="container">
+        <div class="apply-card">
+          <div class="tag-badge">선착순 모집</div>
+          <h3>손비서 1기 챌린지 신청</h3>
+          <p style="color: var(--text-sub); font-size: 0.95rem; margin-bottom: 8px;">2026.11.02(월) ~ 11.07(토) · 6일 완성</p>
+          <div class="price-tag">49,000원</div>
+
+          <div class="steps-container">
+            <div class="step-item">
+              <div class="step-num">1</div>
+              <div class="step-text">참가비 입금 (계좌 안내)</div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">2</div>
+              <div class="step-text">신청서 작성 (구글폼/신청폼)</div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">3</div>
+              <div class="step-text">이메일 접수 확인 (12시간 이내)</div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">4</div>
+              <div class="step-text">참가자 전용 단톡방 입장</div>
+            </div>
+          </div>
+
+          <a href="#" class="apply-btn" onclick="alert('신청서 작성 링크로 이동합니다.'); return false;">지금 챌린지 참가 신청하기</a>
+
+          <a href="https://open.kakao.com" target="_blank" class="contact-link">
+            궁금한 점이 있으신가요? <strong>카카오톡 ID : dooook</strong>
+          </a>
+        </div>
+
+        <!-- 유의사항 -->
+        <div class="notice-box">
+          <strong>⚠️ 신청 전 꼭 확인해 주세요!</strong>
+          <ul>
+            <li>실습은 참가자의 스마트폰(iPhone / Android)에서 진행되며 컴퓨터는 필요하지 않습니다.</li>
+            <li>피클은 초대코드가 있어야 가입할 수 있으며, 챌린지 첫날 참가자분들께 초대코드를 공유해 드립니다.</li>
+            <li>실습은 피클의 무료 사용량 범위부터 시작합니다. 무료 제공량·기능·한도는 정책에 따라 다를 수 있으며 유료 플랜 및 실습 중 발생하는 실제 결제 이용료는 본인 부담입니다.</li>
+            <li><strong>환불 규정:</strong> 챌린지 시작 전날(11/01) 자정까지 취소 시 50% 환불, 11/02(월) 첫 미션 오픈 이후에는 환불이 불가합니다.</li>
+            <li>커리큘럼은 참가자 상황에 따라 예고 없이 일부 조정될 수 있습니다. 문의사항은 카카오톡(dooook)으로 연락해 주세요.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>© 2026 손비서 챌린지 (Son-Secretary). All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
